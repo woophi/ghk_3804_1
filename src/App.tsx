@@ -261,7 +261,7 @@ export const App = () => {
             </ButtonMobile>
             <a
               className={appSt.btn({ color: 'secondary' })}
-              style={{ height: '56px', minWidth: '103px', textAlign: 'center' }}
+              style={{ height: '56px', minWidth: '103px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
               onClick={() => window.gtag('event', 'no_activate_3804_click_p5')}
               href="alfabank://account_details_on_widgets?url=v1/screen-details-prefiller/invest-details/&accountNumber=-1"
             >
