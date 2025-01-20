@@ -119,8 +119,8 @@ export const DotsFrame = ({ className, lvl, lvlFill, children, containerClassNam
             y2="14"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#FFD6C9" />
-            <stop offset="1" stop-color="white" />
+            <stop stopColor="#FFD6C9" />
+            <stop offset="1" stopColor="white" />
           </linearGradient>
         </defs>
       </svg>
