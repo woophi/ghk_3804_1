@@ -212,6 +212,7 @@ export const App = () => {
           style={{ margin: '.5rem 0' }}
           centeredSlidesBounds
           centeredSlides
+          centerInsufficientSlides
         >
           {options.map((o, index) => (
             <SwiperSlide
