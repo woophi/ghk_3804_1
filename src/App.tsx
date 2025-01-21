@@ -5,8 +5,10 @@ import { Typography } from '@alfalab/core-components/typography';
 import { useEffect, useState } from 'react';
 import { Controller } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import checkGray from './assets/check_gray.svg';
 import checkGreen from './assets/check_green.svg';
 import checkWhite from './assets/check_white.svg';
+import clock from './assets/clock.svg';
 import uncheckRed from './assets/uncheck_red.svg';
 import uncheckWhite from './assets/uncheck_white.svg';
 import { DotsFrame } from './DotsFrame';
@@ -16,116 +18,73 @@ const options = [
   {
     title: 'Счёт',
     subtitle: 'Открыт',
-    icon: checkGreen,
   },
   {
     title: '1-ый месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '2-ой месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '3-ий месяц',
     subtitle: '0 ₽',
-    icon: uncheckRed,
   },
   {
     title: '4-ый месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '5-ый месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '6-ой месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '7-ой месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
   {
     title: '8-ой месяц',
     subtitle: '+ 500 ₽',
-    icon: checkGreen,
   },
 ];
 
 const texts = [
   {
-    title: 'Вы посадили доходное дерево',
-    subtitle: (
-      <>
-        Не забывайте его поливать
-        <br />
-        хотя бы раз в месяц
-      </>
-    ),
+    title: 'Вы посадили денежное дерево',
+    subtitle: <>Пополните Инвесткопилку, чтобы дерево начало радовать вас доходами</>,
     step: 0,
   },
   {
-    title: 'Инвестируйте по чуть-чуть',
-    subtitle: (
-      <>
-        Важны не суммы,
-        <br />а регулярные пополнения
-      </>
-    ),
+    title: 'Ухаживайте за ним регулярно',
+    subtitle: <>Даже 50 рублей в месяц помогут вашему дереву расти и приносить плоды. Главное — регулярность</>,
     step: 1,
   },
   {
-    title: 'Пополняйте каждый месяц',
-    subtitle: (
-      <>
-        Не обязательно слишком часто,
-        <br />
-        достаточно раз в месяц
-      </>
-    ),
+    title: 'Не пропускайте пополнение',
+    subtitle: <>Если в какой-то месяц вы не пополните Инвесткопилку, то дерево начнёт увядать</>,
     step: 2,
   },
   {
-    title: 'Не упускайте возможности',
-    subtitle: (
-      <>
-        Даже самые маленькие, но регулярные
-        <br />
-        пополнения, помогают дереву расти
-      </>
-    ),
-    step: 3,
-  },
-  {
-    title: 'Подключите автопополнение',
-    subtitle: (
-      <>
-        Не думайте о пополнении — настройте
-        <br />
-        минимальную сумму и просто ждите
-      </>
-    ),
+    title: 'Подключите автонакопление',
+    subtitle: <>Так ваше дерево будет расти без лишних забот и каждый месяц радовать доходом</>,
     step: 7,
   },
 ];
 
 export const App = () => {
-  const [step, setStep] = useState<0 | 1 | 2 | 3 | 7>(0);
+  const [step, setStep] = useState<0 | 1 | 2 | 7>(0);
   const [controlledSwiper, setControlledSwiper] = useState<SwiperClass | null>(null);
 
   const textData = texts.find(t => t.step === step);
 
   useEffect(() => {
     if (controlledSwiper) {
-      controlledSwiper.slideTo(step);
+      controlledSwiper.slideTo(step === 2 ? 3 : step);
     }
   }, [step]);
 
@@ -140,7 +99,6 @@ export const App = () => {
           <div className={appSt.dot({ selected: step === 0 })} />
           <div className={appSt.dot({ selected: step === 1 })} />
           <div className={appSt.dot({ selected: step === 2 })} />
-          <div className={appSt.dot({ selected: step === 3 })} />
           <div className={appSt.dot({ selected: step === 7 })} />
         </div>
         <Typography.Text className={appSt.subtitle} view="component" color="secondary">
@@ -148,9 +106,9 @@ export const App = () => {
         </Typography.Text>
 
         <div style={{ margin: '3rem 0' }} className={appSt.dotContainer}>
-          <DotsFrame lvl={step} lvlFill={step === 3 ? '#EF4F1D' : '#90AE10'} containerClassName={appSt.frame}>
+          <DotsFrame lvl={step} lvlFill={step === 2 ? '#EF4F1D' : '#90AE10'} containerClassName={appSt.frame}>
             <div
-              className={appSt.imgTree({ grow: step === 7 ? 3 : step === 3 ? 1 : step, tree: step === 3 ? 'red' : 'green' })}
+              className={appSt.imgTree({ grow: step === 7 ? 3 : step === 2 ? 1 : step, tree: step === 2 ? 'red' : 'green' })}
             />
             {step === 1 && (
               <div className={appSt.chip({ color: 'green' })}>
@@ -160,28 +118,13 @@ export const App = () => {
                 </Typography.Text>
               </div>
             )}
-            {step === 3 && (
+            {step === 2 && (
               <div className={appSt.chip({ color: 'red' })}>
                 <img src={uncheckWhite} alt="check" width={24} height={24} />
                 <Typography.Text view="primary-medium" weight="medium">
                   x 2
                 </Typography.Text>
               </div>
-            )}
-            {step === 2 && (
-              <>
-                <div className={appSt.chip({ color: 'green' })}>
-                  <img src={checkWhite} alt="check" width={24} height={24} />
-                  <Typography.Text view="primary-medium" weight="medium">
-                    x 2
-                  </Typography.Text>
-                </div>
-                <div className={appSt.chipText}>
-                  <Typography.Text view="primary-medium" weight="medium">
-                    Комбо
-                  </Typography.Text>
-                </div>
-              </>
             )}
             {step === 7 && (
               <>
@@ -201,9 +144,6 @@ export const App = () => {
           </DotsFrame>
         </div>
 
-        <Typography.TitleResponsive tag="h2" view="medium" font="system" weight="semibold">
-          План роста доходного дерева
-        </Typography.TitleResponsive>
         <Swiper
           modules={[Controller]}
           onSwiper={setControlledSwiper}
@@ -216,15 +156,28 @@ export const App = () => {
         >
           {options.map((o, index) => (
             <SwiperSlide
-              style={index === 3 && step === 3 ? { border: '2px solid #EF4F1D' } : undefined}
-              className={appSt.swSlide({ selected: index === step })}
+              style={index === 3 && step === 2 ? { border: '2px solid #EF4F1D' } : undefined}
+              className={appSt.swSlide({ selected: step === 2 ? index === step + 1 : index === step })}
               key={o.title}
             >
               <Typography.Text view="primary-small">{o.title}</Typography.Text>
               <Typography.Text view="primary-medium" weight="medium">
                 {o.subtitle}
               </Typography.Text>
-              <img src={o.icon} alt={o.title} width={24} height={24} />
+              <img
+                src={
+                  step === 2 && index === step + 1
+                    ? uncheckRed
+                    : step !== 2 && index === step
+                    ? checkGreen
+                    : index > step
+                    ? clock
+                    : checkGray
+                }
+                alt={o.title}
+                width={24}
+                height={24}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -243,7 +196,7 @@ export const App = () => {
                 window.gtag('event', `back_3804_click_p${step + 1}`);
               }
 
-              setStep(step === 7 ? 3 : ((step - 1) as 0 | 1 | 2 | 3 | 7));
+              setStep(step === 7 ? 2 : ((step - 1) as 0 | 1 | 2 | 7));
             }}
           >
             <CDNIcon name="glyph_chevron-left_m" />
@@ -262,12 +215,12 @@ export const App = () => {
             </ButtonMobile>
             <a
               className={appSt.btn({ color: 'secondary' })}
-              style={{ height: '56px', minWidth: '103px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
+              style={{ height: '56px', minWidth: '108px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
               onClick={() => window.gtag('event', 'no_activate_3804_click_p5')}
               href="alfabank://account_details_on_widgets?url=v1/screen-details-prefiller/invest-details/&accountNumber=-1"
             >
               <Typography.Text view="primary-medium" weight="bold">
-                Не надо
+                Не сейчас
               </Typography.Text>
             </a>
           </>
@@ -279,7 +232,7 @@ export const App = () => {
             onClick={() => {
               window.gtag('event', `next_3804_click_p${step + 1}`);
 
-              setStep(step + 1 === 4 ? 7 : ((step + 1) as 0 | 1 | 2 | 3 | 7));
+              setStep(step + 1 === 3 ? 7 : ((step + 1) as 0 | 1 | 2 | 7));
             }}
           >
             <div className={appSt.btnContainer}>

@@ -80,10 +80,6 @@ const imgTree = recipe({
         transform: 'rotate(270deg)',
         backgroundPosition: '-936px -192px',
       },
-      2: {
-        transform: 'rotate(180deg)',
-        backgroundPosition: '-192px -936px',
-      },
       3: {
         transform: 'rotate(90deg)',
         backgroundPosition: '-580px -188px',
